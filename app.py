@@ -45,7 +45,22 @@ app = Dash(__name__)
 
 app.layout = html.Div([
     html.H3("Floquet-driven BJJ Poincaré Sections"),
-
+    dcc.Markdown(r"""
+                The time dependent Hamiltonian for the Floquet-driven system is:
+                $$
+                 H(z, \phi, t) = \frac{\Lambda}{2}z^2 - \sqrt{1-z^2}\cos(\phi)\left(1+\epsilon\sin(\Omega t)\right)
+                $$
+                We introduce the angle coordinate $\theta = \Omega t$ and write the extended Hamiltonian as
+                 $$
+                 H_\text{ext}(z, \phi, \theta, P_\theta) = H(z, \phi, \theta) + \Omega P_\theta
+                 $$
+                 We then use an implicit midpoint integrator which is symplectic and second order.
+                 The implicit equations are solved by iterative method using 10 iterations.
+    """,mathjax=True, style={
+        "maxWidth": "800px",
+        "margin": "auto",
+        "textAlign": "left"
+    }),
     html.Label("Lambda"),
     dcc.Slider(
         id="lambda-slider",
